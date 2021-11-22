@@ -1,12 +1,12 @@
 # Dynamics AX Integration (MES Third party)
 Dynamics AX MES 3P Integration samples and demos.
 
-## Building
+## Building and running
 1. Build the solution. Any warnings can usually be ignored.
 2. Unload the Utilities/ODataUtility project (right-click -> Unload Project) to enable code completion and highlighting for OData entities.
 This project contains a 100 MB auto-generated source file, which is too big for Visual Studio. The build should also be much faster with ODataUtility unloaded.
 3. Insert the endpoints and credentials into Utilities/AuthenticationUtility/ClientConfiguration.cs. Update useWebAppAuthentication in ODataConsoleApplication and JsonConsoleApplication for the authentication method you want to use.
-4. Enable the "Manufacturing execution system integration" feature in Dynamics.
+4. Open the Feature management workspace in Dynamics and enable the "Manufacturing execution system integration" feature.
 5. Change the default company of the Dynamics user to USMF. To retrieve data outside of the default company through OData, you need to add the cross-company query parameter, e.g. using myLinqQuery.AddQueryOption("cross-company", true);
 
 ## Configuring AAD authentication (Dynamics development environment)
