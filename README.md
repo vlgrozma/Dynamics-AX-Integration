@@ -31,8 +31,6 @@ This project contains a 100 MB auto-generated source file, which is too big for 
 
 ### Send a business event if a message fails
 1. Open the Manufacturing execution system integration form in Dynamics (JmgMES3PMessageProcessorMessage) and select Options -> Create a custom alert.
-2. Set Table name to "Processing state", Field to "Message state" and Event to "is set to: Failed"
-3. Under "Alert me for", uncheck Organization-wide.
-4. Under "Alert me with", check Send externally. You can also set a Dynamics user that will get an in-app notification, as well as send an email, although the latter requires office/exchange integration to be set up. Then click OK.
-5. Open the Change based alerts dialog (Action:EventCUD) and click Recurrence under "Run in the background".
-6. Check "No end date", set the Recurrence pattern to Minutes and Count to e.g. 1. Click OK twice.
+2. Set Table name to "Processing state", Field to "Message state" and Event to "is set to: Failed". Under "Alert me for", uncheck Organization-wide. Under "Alert me with", check Send externally. You can also set a Dynamics user that will get an in-app notification, as well as send an email, although the latter requires office/exchange integration to be set up. Then click OK.
+3. Open the Change based alerts dialog (Action:EventCUD) and click Recurrence under "Run in the background".
+4. Check "No end date", set the Recurrence pattern to Minutes and Count to e.g. 1. Click OK twice.
