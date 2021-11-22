@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace ODataConsoleApplication
 {
-    class SimpleCRUDExamples
+    public class SimpleCRUDExamples
     {
         public static void SimpleCRUD(Resources d365)
         {
@@ -47,5 +47,6 @@ namespace ODataConsoleApplication
             Console.WriteLine("Records found = {0}", assetMajorTypeAfterDelete.Count());
             Console.WriteLine("Asset Major type of ID {0} successfully deleted.", assetMajorTypeAfterUpdate.MajorTypeId);
         }
+
     }
 }

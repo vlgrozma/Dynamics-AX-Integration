@@ -1,43 +1,49 @@
 ﻿using AuthenticationUtility;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net;
-using System.Net.Security;
-using System.Web;
-using System.Security.Authentication;
-using System.Text;
-using System.Security.Cryptography.X509Certificates;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Text.Json;
+using System.Threading.Tasks;
 
-namespace OAuthXppConsoleApplication
+namespace JsonConsoleApplication
 {
-    class Program
+    public class Program
     {
-        // In the AOT you will find UserSessionService in Service Groups and AifUserSessionService under Services.
-        public static string sessionUrl = "/api/services/UserSessionService/AifUserSessionService/GetUserSessionInfo";
+        // In the AOT you will find SysMessageServices in Service Groups and SysMessageService under Services.
+        private const string messageUrl = "/api/services/SysMessageServices/SysMessageService/SendMessage";
         
-        static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
-            string GetUserSessionOperationPath = string.Format("{0}{1}", ClientConfiguration.Default.UriString.TrimEnd('/'), sessionUrl);
-            
-            var request = HttpWebRequest.Create(GetUserSessionOperationPath);     
-            // If you call GetAuthenticationHeader with true you will the auth via AAD Web App, otherwise via Native AAD App
-            request.Headers[OAuthHelper.OAuthHeader] = OAuthHelper.GetAuthenticationHeader();
-            request.Method = "POST";
-            request.ContentLength = 0;
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.TryAddWithoutValidation(OAuthHelper.OAuthHeader, OAuthHelper.GetAuthenticationHeader(useWebAppAuthentication: false));
 
-            using (var response = (HttpWebResponse)request.GetResponse())
+            string messagePath = string.Format("{0}{1}", ClientConfiguration.Default.UriString.TrimEnd('/'), messageUrl);
+
+            // See https://docs.microsoft.com/en-us/dynamics365/supply-chain/production-control/mes-integration
+            // for the various message types and their supported parameters.
+            var messageContent = new
             {
-                using (Stream responseStream = response.GetResponseStream())
-                {
-                    using (StreamReader streamReader = new StreamReader(responseStream))
-                    {
-                        string responseString = streamReader.ReadToEnd();
+                ProductionOrderNumber = "P000210"
+            };
 
-                        Console.WriteLine(responseString);
-                    }
-                }
-            }
+            var message = new
+            {
+                _companyId = "USMF",
+                _messageQueue = "JmgMES3P",
+                _messageType = "ProdProductionOrderStart",
+                _messageContent = JsonSerializer.Serialize(messageContent)
+            };
+
+            var postRequest = new HttpRequestMessage(HttpMethod.Post, messagePath)
+            {
+                Content = JsonContent.Create(message)
+            };
+
+            var postResponse = await client.SendAsync(postRequest);
+
+            postResponse.EnsureSuccessStatusCode();
+
+            Console.WriteLine("Message posted.");
 
             Console.ReadLine();
         }

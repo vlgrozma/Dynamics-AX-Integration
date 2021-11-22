@@ -1,14 +1,10 @@
 ﻿using Microsoft.OData.Client;
 using ODataUtility.Microsoft.Dynamics.DataEntities;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ODataConsoleApplication
 {
-    class ODataChangesetsExample
+    public class ODataChangesetsExample
     {
         public static void CreateSalesOrderInSingleChangeset(Resources context)
         {
@@ -42,7 +38,7 @@ namespace ODataConsoleApplication
             }
             catch (DataServiceRequestException e)
             {
-                Console.WriteLine(string.Format("Invoice {0} - Save Failed !", salesOrderNumber));
+                Console.WriteLine(string.Format("Invoice {0} - Save Failed: {1}", salesOrderNumber, e));
             }
         }
 
@@ -79,8 +75,9 @@ namespace ODataConsoleApplication
             }
             catch (DataServiceRequestException e)
             {
-                Console.WriteLine(string.Format("Invoice {0} - Save Failed !", salesOrderNumber));
+                Console.WriteLine(string.Format("Invoice {0} - Save Failed: {1}", salesOrderNumber, e));
             }
         }
+
     }
 }

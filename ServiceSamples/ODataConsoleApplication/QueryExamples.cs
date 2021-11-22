@@ -1,10 +1,7 @@
 ﻿using Microsoft.OData.Client;
 using ODataUtility.Microsoft.Dynamics.DataEntities;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ODataConsoleApplication
 {
@@ -37,14 +34,71 @@ namespace ODataConsoleApplication
             }
         }
 
-        public static void FilterLinqSyntax(Resources d365)
+        public static void ProductionOrderEntity(Resources d365)
         {
-            var vendors = d365.Vendors.Where(x => x.VendorAccountNumber == "1001");
+            var productionOrders = d365.ProductionOrderHeaders
+                .Expand("ProdutionOrderBOMLines,ReleasedProductV2,ProductionOrderRouteJobs")
+                //.AddQueryOption("cross-company", true)
+                .Where(x => /*x.DataAreaId == "USMF" &&*/ x.ProductionOrderNumber == "P000173");
 
-            foreach (var vendor in vendors)
+            foreach (var productionOrder in productionOrders)
             {
-                Console.WriteLine("Vendor with ID {0} retrived.", vendor.VendorAccountNumber);
+                Console.WriteLine("Production Order with ID {0} retrieved.", productionOrder.ProductionOrderNumber);
             }
+
+            /*var productionOrders = d365.ProductionOrderHeaders
+                .Where(x => x.ProductionOrderNumber == "P000210");
+
+            var productionOrder = productionOrders.Single();
+
+            Console.WriteLine("Production Order with ID {0} retrieved.", productionOrder.ProductionOrderNumber);
+
+            var productionOrderUpdate = new DataServiceCollection<ProductionOrderHeader>(productionOrders)[0];
+
+            productionOrderUpdate.ProductionOrderName += "1";
+            d365.SaveChanges(SaveChangesOptions.PostOnlySetProperties);
+
+            Console.WriteLine("Production Order with ID {0} updated.", productionOrderUpdate.ProductionOrderNumber);*/
+        }
+
+        public static void CustomerEntity(Resources d365)
+        {
+            var singleCustomer = d365.CustomersV3
+                .Where(x => x.CustomerAccount == "US-001")
+                .Single();
+
+            Console.WriteLine($"Customer with ID {singleCustomer.CustomerAccount} retrieved.");
+
+            foreach (var customer in d365.CustomersV3)
+            {
+                Console.WriteLine($"Customer with ID {customer.CustomerAccount} retrieved.");
+            }
+        }
+
+        public static void ReleasedProductsEntity(Resources d365)
+        {
+            var product = d365.ReleasedProductsV2.Expand("ProductionOrderHeaders")
+                .Where(x => x.ItemNumber == "D0001")
+                .First();
+
+            Console.WriteLine($"Released product {product.ItemNumber} retrieved.");
+        }
+
+        public static void SalesOrderEntity(Resources d365)
+        {
+            var salesOrder = d365.SalesOrderHeadersV2.Expand("SalesOrderLines")
+                .Where(x => x.SalesOrderNumber == "000724")
+                .Single();
+
+            Console.WriteLine($"Sales order {salesOrder.SalesOrderNumber} retrieved.");
+            
+            var salesLineUpdate = new DataServiceCollection<SalesOrderLine>(
+                d365.SalesOrderLines.Where(x => x.SalesOrderNumber == "000724"))[0];
+
+            salesLineUpdate.RequestedReceiptDate = DateTimeOffset.UtcNow;
+            d365.SaveChanges(SaveChangesOptions.PostOnlySetProperties);
+
+            Console.WriteLine($"Sales line with order ID {salesLineUpdate.SalesOrderNumber} and Item ID {salesLineUpdate.ItemNumber} updated.");
         }
 
         public static void FilterSyntax(Resources d365)
@@ -102,6 +156,7 @@ namespace ODataConsoleApplication
                 Console.WriteLine(salesOrderLine.ItemNumber);
             }          
 
-        }       
+        }
+        
     }
 }

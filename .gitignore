@@ -194,6 +194,4 @@ _Pvt_Extensions/
 ModelManifest.xml
 /Source/.vs/config/applicationhost.config
 /ServiceSamples/packages
-/FileBasedIntegrationSamples/LogicAppSamples/.vs/config
-/DIXFSamples/packages
-/FileBasedIntegrationSamples/ConsoleAppSamples/DataPackageHandler/packages
+/.vs
