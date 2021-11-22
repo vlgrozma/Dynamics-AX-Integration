@@ -14,7 +14,7 @@ This project contains a 100 MB auto-generated source file, which is too big for 
 2. Go to App registrations in the Azure Portal and click + New registration. Give your app a name (any will do) and click Register.
 3. Open the app in Azure Portal and navigate to Certificates & secrets. Click + New client secret, give it a description and click Add.
 4. Copy the generated Value to the ActiveDirectoryClientAppSecret field in ClientConfiguration.cs and the Application (client) ID to ActiveDirectoryClientAppId.
-5. Set ActiveDirectoryResource to your Dynamics URL and ActiveDirectoryTenant to https://login.windows.net/yourtenant.onmicrosoft.com
+5. Set UriString and ActiveDirectoryResource to your Dynamics URL (the latter without trailing /) and ActiveDirectoryTenant to https://login.windows.net/yourtenant.onmicrosoft.com
 6. Change useWebAppAuthentication to true in ODataConsoleApplication and JsonConsoleApplication.
 7. Open the Azure Active Directory applications form in Dynamics (SysAADClientTable) and map the Application ID of your application to a Dynamics user.
 
