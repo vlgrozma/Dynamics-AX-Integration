@@ -28,3 +28,11 @@ This project contains a 100 MB auto-generated source file, which is too big for 
 7. Open the Business events catalog workspace in Dynamics (BusinessEventsWorkspace), navigate to the Endpoints tab and click + New. Select Azure Service Bus Queue and click Next. Give the Endpoint a name, then enter the Queue name (step 3), Service Bus SKU (step 2), Azure Active Directory application ID and secret (step 1), Key Vault DNS name (copy the Vault URI from the Overview page of the Key vault) and secret name (step 6). Click OK - this will send a test message to the queue.
 8. Navigate back to the Business event catalog tab, select the BusinessEventsAlertEvent and the ProductionOrderReleasedBusinessEvent and click + Activate. Select the Legal entity (e.g. USMF) and the Endpoint you just created, and click OK.
 9. In ConsoleApplications/BusinessEventListenerApplication/Program.cs, paste the connection string from step 4 into the ServiceBusClient constructor parameter in the ListenServiceBus() method, and the queue name into the CreateProcessor call on the next line. You can of course use different access keys/policies for reading and writing to the queue.
+
+### Send a business event if a message fails
+1. Open the Manufacturing execution system integration form in Dynamics (JmgMES3PMessageProcessorMessage) and select Options -> Create a custom alert.
+2. Set Table name to "Processing state", Field to "Message state" and Event to "is set to: Failed"
+3. Under "Alert me for", uncheck Organization-wide.
+4. Under "Alert me with", check Send externally. You can also set a Dynamics user that will get an in-app notification, as well as send an email, although the latter requires office/exchange integration to be set up. Then click OK.
+5. Open the Change based alerts dialog (Action:EventCUD) and click Recurrence under "Run in the background".
+6. Check "No end date", set the Recurrence pattern to Minutes and Count to e.g. 1. Click OK twice.
