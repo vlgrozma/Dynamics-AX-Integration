@@ -1,4 +1,4 @@
-# Dynamics AX Integration (MES3 Third party)
+# Dynamics AX Integration (MES Third party)
 Dynamics AX MES 3P Integration samples and demos.
 
 ## Building
