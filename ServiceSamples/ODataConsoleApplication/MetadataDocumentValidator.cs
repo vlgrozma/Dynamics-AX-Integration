@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace ODataConsoleApplication
@@ -11,10 +9,10 @@ namespace ODataConsoleApplication
     /// <summary>
     /// Validates metadata document and shows warning messages for entity/enum name collisions.
     /// </summary>
-    class MetadataDocumentValidator
+    public class MetadataDocumentValidator
     {
         /// <param name="args"></param>
-        static void ValidateMetadataDocument(string[] args)
+        public static void ValidateMetadataDocument(string[] args)
         {
             string filename = @"C:\Users\xyz\Documents\metadata.xml";  // change this path as needed
 
@@ -56,5 +54,6 @@ namespace ODataConsoleApplication
 
             Console.ReadLine();
         }
+
     }
 }

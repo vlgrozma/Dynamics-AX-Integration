@@ -1,9 +1,6 @@
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net;
 
 namespace AuthenticationUtility
 {
@@ -27,6 +24,8 @@ namespace AuthenticationUtility
 
             AuthenticationContext authenticationContext = new AuthenticationContext(aadTenant, false);
             AuthenticationResult authenticationResult;
+
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
             if (useWebAppAuthentication)
             {

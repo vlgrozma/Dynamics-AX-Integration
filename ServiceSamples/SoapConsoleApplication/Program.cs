@@ -6,29 +6,29 @@ using System.ServiceModel.Channels;
 
 namespace SoapConsoleApplication
 {
-    class Program
+    public class Program
     {
         public const string UserSessionServiceName = "UserSessionService";
 
         [STAThread]
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            var aosUriString = ClientConfiguration.Default.UriString;
+            string aosUriString = ClientConfiguration.Default.UriString;
 
-            var oauthHeader = OAuthHelper.GetAuthenticationHeader();
-            var serviceUriString = SoapUtility.SoapHelper.GetSoapServiceUriString(UserSessionServiceName, aosUriString);
+            string oauthHeader = OAuthHelper.GetAuthenticationHeader();
+            string serviceUriString = SoapUtility.SoapHelper.GetSoapServiceUriString(UserSessionServiceName, aosUriString);
 
-            var endpointAddress = new System.ServiceModel.EndpointAddress(serviceUriString);
-            var binding = SoapUtility.SoapHelper.GetBinding();
+            var endpointAddress = new EndpointAddress(serviceUriString);
+            Binding binding = SoapUtility.SoapHelper.GetBinding();
 
             var client = new UserSessionServiceClient(binding, endpointAddress);
-            var channel = client.InnerChannel;
+            IClientChannel channel = client.InnerChannel;
 
             UserSessionInfo sessionInfo = null;
 
             using (OperationContextScope operationContextScope = new OperationContextScope(channel))
             {
-                HttpRequestMessageProperty requestMessage = new HttpRequestMessageProperty();
+                 HttpRequestMessageProperty requestMessage = new HttpRequestMessageProperty();
                  requestMessage.Headers[OAuthHelper.OAuthHeader] = oauthHeader;
                  OperationContext.Current.OutgoingMessageProperties[HttpRequestMessageProperty.Name] = requestMessage;
                  sessionInfo = ((UserSessionService)channel).GetUserSessionInfo(new GetUserSessionInfo()).result;
