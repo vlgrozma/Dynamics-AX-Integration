@@ -57,7 +57,7 @@ namespace BusinessEventListenerApplication
 
             try
             {
-                client = new ServiceBusClient("Endpoint=sb://servicebustest051021.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=LRJl8REGw9I6UU7G0l3welforXM2fAMVwEjMNK3sNeg=");
+                client = new ServiceBusClient("Endpoint=sb://servicebustest051021.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=");
 
                 processor = client.CreateProcessor("mybusinesseventqueue");
                 processor.ProcessMessageAsync += MessageHandler;
