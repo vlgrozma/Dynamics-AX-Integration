@@ -7,8 +7,8 @@
     <ProjectGuid>{003F5F9E-658D-4C90-B185-6726A5CF41FC}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OAuthXppConsoleApplication</RootNamespace>
-    <AssemblyName>OAuthXppConsoleApplication</AssemblyName>
+    <RootNamespace>JsonConsoleApplication</RootNamespace>
+    <AssemblyName>JsonConsoleApplication</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
