@@ -27,9 +27,10 @@ namespace AuthenticationUtility
             ActiveDirectoryTenant = // Some samples: https://login.windows.net/yourtenant.onmicrosoft.com, https://login.windows.net/microsoft.com
             "https://login.windows-ppe.net/TAEOfficial.ccsctp.net",
             ActiveDirectoryClientAppId =
-            "",
+            "d8a9a121-b463-41f6-a86c-041272bdb340",
             // Insert here the application secret when authenticating with AAD by the application
-            ActiveDirectoryClientAppSecret = "",
+            ActiveDirectoryClientAppSecret =
+            "",
         };
 
         public string UriString { get; set; }
